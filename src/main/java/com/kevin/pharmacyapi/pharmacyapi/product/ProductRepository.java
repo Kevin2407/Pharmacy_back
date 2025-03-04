@@ -1,6 +1,5 @@
-package com.kevin.pharmacyapi.pharmacyapi.repository;
+package com.kevin.pharmacyapi.pharmacyapi.product;
 
-import com.kevin.pharmacyapi.pharmacyapi.model.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
