@@ -1,4 +1,5 @@
 package com.kevin.pharmacyapi.pharmacyapi.stockMovement;
+import com.kevin.pharmacyapi.pharmacyapi.config.audit.Auditable;
 import com.kevin.pharmacyapi.pharmacyapi.product.Product;
 import com.kevin.pharmacyapi.pharmacyapi.stockMovement.sale.Sale;
 import com.kevin.pharmacyapi.pharmacyapi.stockMovement.supplier.Supplier;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @ToString
 @Entity
 @Table(name = "stock_movement")
-public class StockMovement {
+public class StockMovement extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,19 +35,5 @@ public class StockMovement {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MovementType movement_type;
-
-    @Column(nullable = true)
-    private LocalDateTime created_at;
-
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
-    private User created_by;
-
-    @PrePersist
-    protected void onCreate() {
-        created_at = LocalDateTime.now();
-        created_by = new User();
-        created_by.setId(1L);
-    }
 
 }
