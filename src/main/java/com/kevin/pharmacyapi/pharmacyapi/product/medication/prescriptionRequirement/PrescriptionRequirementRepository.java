@@ -1,4 +1,4 @@
-package com.kevin.pharmacyapi.pharmacyapi.medication.prescriptionRequirement;
+package com.kevin.pharmacyapi.pharmacyapi.product.medication.prescriptionRequirement;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.kevin.pharmacyapi.pharmacyapi.medication;
+package com.kevin.pharmacyapi.pharmacyapi.product.medication;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

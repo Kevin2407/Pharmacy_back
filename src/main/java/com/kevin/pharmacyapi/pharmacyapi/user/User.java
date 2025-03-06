@@ -1,35 +1,56 @@
-package com.kevin.pharmacyapi.pharmacyapi.medication.prescriptionRequirement;
-import jakarta.persistence.*;
+package com.kevin.pharmacyapi.pharmacyapi.user;
 
+import com.kevin.pharmacyapi.pharmacyapi.user.role.Role;
+import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
 @Entity
-@Table(name = "prescription_requirement")
-
-public class PrescriptionRequirement {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true, length = 50)
-    private String legal_code;
-    @Column(nullable = false, length = 50)
-    private String max_dose;
+
+    @Column(nullable = false)
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column
+    private String phone;
+
+    @Column(nullable = false)
+    private String password;
+
     @Column(nullable = true)
     private LocalDateTime created_at;
+
     @Column(nullable = true)
     private LocalDateTime updated_at;
+
     @Column(nullable = true)
     private Date deleted_at;
+
     @Column(nullable = true)
     private String created_by;
+
     @Column(nullable = true)
     private String updated_by;
+
     @Column(nullable = true)
     private String deleted_by;
 
@@ -52,5 +73,4 @@ public class PrescriptionRequirement {
         deleted_at = new Date();
         deleted_by = "default_user";
     }
-
 }
