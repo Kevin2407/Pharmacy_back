@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/producto")
 public class ProductController {
