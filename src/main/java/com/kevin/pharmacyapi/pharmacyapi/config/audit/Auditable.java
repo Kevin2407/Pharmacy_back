@@ -2,7 +2,7 @@
 package com.kevin.pharmacyapi.pharmacyapi.config.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kevin.pharmacyapi.pharmacyapi.user.User;
+import com.kevin.pharmacyapi.pharmacyapi.entities.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

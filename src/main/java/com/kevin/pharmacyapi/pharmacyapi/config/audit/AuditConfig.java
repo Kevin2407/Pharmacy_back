@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import com.kevin.pharmacyapi.pharmacyapi.user.User;
+import com.kevin.pharmacyapi.pharmacyapi.entities.user.User;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")

@@ -1,7 +1,7 @@
 // src/main/java/com/kevin/pharmacyapi/pharmacyapi/config/audit/AuditAwareImpl.java
 package com.kevin.pharmacyapi.pharmacyapi.config.audit;
 
-import com.kevin.pharmacyapi.pharmacyapi.user.User;
+import com.kevin.pharmacyapi.pharmacyapi.entities.user.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
