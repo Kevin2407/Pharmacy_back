@@ -1,5 +1,6 @@
 package com.kevin.pharmacyapi.pharmacyapi.entities.product;
 
+import com.kevin.pharmacyapi.pharmacyapi.relations.stock.QueryStock;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org. springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins= "*")
@@ -23,6 +25,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> findById(@PathVariable Long id) {
         return ResponseEntity.ok(productRepository.findById(id));
+    }
+    @GetMapping("/stock")
+    public ResponseEntity<List<QueryStock>> findAllProductsWithStock() {
+        return ResponseEntity.ok(productRepository.findAllProductsWithStock());
     }
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product newProduct, UriComponentsBuilder builder) {
