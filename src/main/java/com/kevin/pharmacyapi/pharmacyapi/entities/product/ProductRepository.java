@@ -11,9 +11,10 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query(value = """
     SELECT 
-        p.id AS productId,
-        p.name AS productName,
-        p.description AS productDescription,
+        p.id AS id,
+        p.name AS name,
+        p.description AS description,
+        p.price AS price,
         COALESCE(SUM(
             CASE 
                 WHEN sm.movement_type IN ('ENTRY', 'RETURN') THEN sml.quantity

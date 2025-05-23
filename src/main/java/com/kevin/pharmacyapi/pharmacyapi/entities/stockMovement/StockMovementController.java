@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/movimiento")
 public class StockMovementController {
@@ -48,7 +49,30 @@ public class StockMovementController {
 //    }
 
     @PostMapping
-    public ResponseEntity<StockMovement> createWithLines(@RequestBody StockMovementDTO dto, UriComponentsBuilder builder) {
+    public ResponseEntity<?> createWithLines(@RequestBody StockMovementDTO dto, UriComponentsBuilder builder) {
+    System.out.println("DTO: " + dto.getMovementType());
+    System.out.println("Condition: " + MovementType.SALE.equals(dto.getMovementType()));
+        if (MovementType.SALE.equals(dto.getMovementType()) || MovementType.ADJUSTMENT.equals(dto.getMovementType())) {
+            for (StockMovementLineDTO lineDTO : dto.getLines()) {
+                Long productId = lineDTO.getProduct().getId();
+                int requestedQuantity = lineDTO.getQuantity();
+
+                Integer availableStock = stockMovementLineRepository.calculateStockForProduct(productId);
+
+                if (availableStock == null) {
+                    availableStock = 0;
+                }
+
+                if (availableStock < requestedQuantity) {
+                    return ResponseEntity.badRequest().body(
+                            "Stock insuficiente para el producto con ID " + productId +
+                                    ". Stock disponible: " + availableStock +
+                                    ", Cantidad solicitada: " + requestedQuantity
+                    );
+                }
+            }
+        }
+
         StockMovement movement = new StockMovement();
         movement.setMovementType(dto.getMovementType());
 

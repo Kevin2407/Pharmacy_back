@@ -1,11 +1,15 @@
 package com.kevin.pharmacyapi.pharmacyapi.relations.stock;
 
+import java.math.BigDecimal;
+
 public interface QueryStock {
-    Long getProductId();
+    Long getId();
 
-    String getProductName();
+    String getName();
 
-    String getProductDescription();
+    String getDescription();
+
+    BigDecimal getPrice();
 
     Integer getStock();
 
