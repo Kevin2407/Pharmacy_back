@@ -53,6 +53,7 @@ public class StockMovementController {
     System.out.println("DTO: " + dto.getMovementType());
     System.out.println("Condition: " + MovementType.SALE.equals(dto.getMovementType()));
         if (MovementType.SALE.equals(dto.getMovementType()) || MovementType.ADJUSTMENT.equals(dto.getMovementType())) {
+            List<StockMovementLineDTO> badLines = new ArrayList<>();
             for (StockMovementLineDTO lineDTO : dto.getLines()) {
                 Long productId = lineDTO.getProduct().getId();
                 int requestedQuantity = lineDTO.getQuantity();
@@ -64,12 +65,12 @@ public class StockMovementController {
                 }
 
                 if (availableStock < requestedQuantity) {
-                    return ResponseEntity.badRequest().body(
-                            "Stock insuficiente para el producto con ID " + productId +
-                                    ". Stock disponible: " + availableStock +
-                                    ", Cantidad solicitada: " + requestedQuantity
-                    );
+                    badLines.add(lineDTO);
                 }
+            }
+            if (!badLines.isEmpty()) {
+                StockErrorResponse errorResponse = new StockErrorResponse("INSUFFICIENT_STOCK", badLines);
+                return ResponseEntity.unprocessableEntity().body(errorResponse);
             }
         }
 
