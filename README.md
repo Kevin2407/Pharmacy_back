@@ -43,6 +43,7 @@ PharmacyAPI es un sistema de gestión de inventario y movimientos de stock para 
      spring.datasource.password=TU_PASSWORD
      spring.jpa.hibernate.ddl-auto=update
      ```
+     > **Nota:** Muchas veces he tenido problemas para que Hibernate cree las tablas al inicializar el proyecto. Si tienes problemas, puedes cambiar `spring.jpa.hibernate.ddl-auto=update` a `spring.jpa.hibernate.ddl-auto=create` para que las tablas se creen automáticamente la primera vez. Luego, puedes volver a cambiarlo a `update` para evitar que se borren los datos en futuros reinicios.
 
 3. **Compila y ejecuta la aplicación:**
    ```bash
@@ -62,57 +63,9 @@ PharmacyAPI es un sistema de gestión de inventario y movimientos de stock para 
 - `resources/` - Archivos de configuración y recursos estáticos
 
 
-## Script para agregar datos de prueba
 
-### Eliminación de datos existentes
 
-Primero borramos datos existentes para evitar duplicados
-```sql
-DELETE FROM stock_movement;
-DELETE FROM product;
-DELETE FROM category;
-```
+### Aviso importante
 
-### Inserción de categorías
+> **Nota:** Las entidades que extienden de Auditable son auditadas, y en la versión actual, el sistema no maneja autenticación de usuarios. Al no haber un usuario identificado, es necesario tener al menos un usuario registrado en la base de datos para que la auditoría funcione correctamente, puesto que el sistema toma al usuario de id = 1. Aunque la autenticación aún no está implementada, agrega un rol y luego un usuario de prueba antes de ingresar otros datos.
 
-```sql
-INSERT INTO category (id, name, description) VALUES 
-(1, 'Analgésicos', 'Medicamentos para aliviar el dolor'),
-(2, 'Antibióticos', 'Medicamentos para tratar infecciones bacterianas'),
-(3, 'Dermatológicos', 'Productos para el cuidado de la piel'),
-(4, 'Vitaminas', 'Suplementos vitamínicos y minerales'),
-(5, 'Gastrointestinales', 'Medicamentos para problemas digestivos');
-```
-
-### Inserción de productos con stock inicial
-
-```sql
-INSERT INTO product (id, name, description, price, stock, category_id) VALUES 
-(1, 'Paracetamol 500mg', 'Tabletas para dolor y fiebre', 5.50, 100, 1),
-(2, 'Ibuprofeno 400mg', 'Antiinflamatorio no esteroideo', 7.80, 80, 1),
-(3, 'Amoxicilina 500mg', 'Antibiótico de amplio espectro', 12.30, 50, 2),
-(4, 'Azitromicina 500mg', 'Antibiótico macrólido', 15.60, 40, 2),
-(5, 'Crema hidratante', 'Para piel seca y sensible', 8.90, 30, 3),
-(6, 'Protector solar FPS 50', 'Protección contra rayos UVA/UVB', 18.50, 25, 3),
-(7, 'Complejo B', 'Suplemento de vitaminas B', 9.70, 60, 4),
-(8, 'Vitamina C 1000mg', 'Refuerzo para el sistema inmunológico', 11.40, 70, 4),
-(9, 'Omeprazol 20mg', 'Inhibidor de la bomba de protones', 13.20, 45, 5),
-(10, 'Loperamida 2mg', 'Antidiarreico', 6.80, 55, 5);
-```
-
-### Inserción de movimientos de stock iniciales
-
-```sql
-INSERT INTO stock_movement (id, product_id, quantity, movement_type, date, description) VALUES 
-(1, 1, 100, 'ENTRADA', NOW(), 'Stock inicial'),
-(2, 2, 80, 'ENTRADA', NOW(), 'Stock inicial'),
-(3, 3, 50, 'ENTRADA', NOW(), 'Stock inicial'),
-(4, 4, 40, 'ENTRADA', NOW(), 'Stock inicial'),
-(5, 5, 30, 'ENTRADA', NOW(), 'Stock inicial'),
-(6, 6, 25, 'ENTRADA', NOW(), 'Stock inicial'),
-(7, 7, 60, 'ENTRADA', NOW(), 'Stock inicial'),
-(8, 8, 70, 'ENTRADA', NOW(), 'Stock inicial'),
-(9, 9, 45, 'ENTRADA', NOW(), 'Stock inicial'),
-(10, 10, 55, 'ENTRADA', NOW(), 'Stock inicial');
-```
-```
