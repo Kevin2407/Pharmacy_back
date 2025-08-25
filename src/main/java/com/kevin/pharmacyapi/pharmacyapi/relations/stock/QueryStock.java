@@ -11,6 +11,6 @@ public interface QueryStock {
 
     BigDecimal getPrice();
 
-    Integer getStock();
+    Integer getCurrent_stock();
 
 }

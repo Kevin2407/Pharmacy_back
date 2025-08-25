@@ -21,7 +21,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
                 WHEN sm.movement_type IN ('SALE', 'ADJUSTMENT') THEN -sml.quantity
                 ELSE 0
             END
-        ), 0) AS stock
+        ), 0) AS current_stock
     FROM product p
     LEFT JOIN stock_movement_line sml ON p.id = sml.product_id
     LEFT JOIN stock_movement sm ON sml.movement_id = sm.id

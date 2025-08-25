@@ -20,12 +20,12 @@ public abstract class Auditable {
     private LocalDateTime updated_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
+    @JoinColumn(name = "created_by", nullable = false, columnDefinition = "bigint default 1")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User created_by;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by", nullable = false)
+    @JoinColumn(name = "updated_by", nullable = false, columnDefinition = "bigint default 1")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User updated_by;
 
